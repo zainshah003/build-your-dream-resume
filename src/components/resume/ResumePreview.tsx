@@ -28,145 +28,178 @@ export const ResumePreview = ({ data }: ResumePreviewProps) => {
 
   if (!hasContent) {
     return (
-      <div className="print-resume bg-card min-h-[800px] p-8 shadow-elevated rounded-lg flex items-center justify-center">
-        <div className="text-center text-muted-foreground">
-          <p className="text-lg font-serif">Your resume preview will appear here</p>
-          <p className="text-sm mt-2">Start filling in your information on the left</p>
+      <div className="print-resume bg-card min-h-[850px] rounded-2xl shadow-elevated border border-border/30 flex items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-primary/5" />
+        <div className="text-center text-muted-foreground relative z-10 p-8">
+          <div className="w-20 h-20 rounded-full bg-secondary/50 flex items-center justify-center mx-auto mb-4">
+            <div className="w-12 h-0.5 bg-muted-foreground/30 rounded-full" />
+          </div>
+          <p className="text-xl font-serif font-medium mb-2">Your resume preview will appear here</p>
+          <p className="text-sm opacity-70">Start filling in your information on the left</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="print-resume bg-card min-h-[800px] p-8 shadow-elevated rounded-lg animate-fade-in">
-      {/* Header */}
-      {hasPersonalInfo && (
-        <header className="mb-6 pb-6 border-b border-border">
-          {personalInfo.fullName && (
-            <h1 className="text-3xl font-serif font-semibold text-foreground mb-2">
-              {personalInfo.fullName}
-            </h1>
-          )}
+    <div className="print-resume bg-card min-h-[850px] rounded-2xl shadow-elevated border border-border/30 overflow-hidden animate-fade-in">
+      {/* Decorative top bar */}
+      <div className="h-2 bg-gradient-to-r from-primary via-accent to-primary" />
+      
+      <div className="p-8">
+        {/* Header */}
+        {hasPersonalInfo && (
+          <header className="mb-8 pb-6 border-b-2 border-border/30 relative">
+            {personalInfo.fullName && (
+              <h1 className="text-4xl font-serif font-bold text-foreground mb-3 tracking-tight">
+                {personalInfo.fullName}
+              </h1>
+            )}
 
-          <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-            {personalInfo.email && (
-              <span className="flex items-center gap-1.5">
-                <Mail className="h-3.5 w-3.5 text-accent" />
-                {personalInfo.email}
-              </span>
-            )}
-            {personalInfo.phone && (
-              <span className="flex items-center gap-1.5">
-                <Phone className="h-3.5 w-3.5 text-accent" />
-                {personalInfo.phone}
-              </span>
-            )}
-            {personalInfo.location && (
-              <span className="flex items-center gap-1.5">
-                <MapPin className="h-3.5 w-3.5 text-accent" />
-                {personalInfo.location}
-              </span>
-            )}
-            {personalInfo.linkedin && (
-              <span className="flex items-center gap-1.5">
-                <Linkedin className="h-3.5 w-3.5 text-accent" />
-                {personalInfo.linkedin}
-              </span>
-            )}
-            {personalInfo.website && (
-              <span className="flex items-center gap-1.5">
-                <Globe className="h-3.5 w-3.5 text-accent" />
-                {personalInfo.website}
-              </span>
-            )}
-          </div>
-
-          {personalInfo.summary && (
-            <p className="mt-4 text-sm text-foreground/80 leading-relaxed">
-              {personalInfo.summary}
-            </p>
-          )}
-        </header>
-      )}
-
-      {/* Work Experience */}
-      {workExperience.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-serif font-semibold text-foreground mb-4 pb-2 border-b border-border/50">
-            Work Experience
-          </h2>
-          <div className="space-y-4">
-            {workExperience.map((exp) => (
-              <div key={exp.id} className="animate-slide-in">
-                <div className="flex justify-between items-start mb-1">
-                  <div>
-                    <h3 className="font-semibold text-foreground">{exp.position}</h3>
-                    <p className="text-sm text-accent font-medium">{exp.company}</p>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
+              {personalInfo.email && (
+                <span className="flex items-center gap-2 hover:text-accent transition-colors">
+                  <div className="h-6 w-6 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Mail className="h-3 w-3 text-accent" />
                   </div>
-                  <span className="text-xs text-muted-foreground whitespace-nowrap">
-                    {formatDate(exp.startDate)} – {exp.current ? "Present" : formatDate(exp.endDate)}
-                  </span>
-                </div>
-                {exp.description && (
-                  <p className="text-sm text-foreground/80 mt-2 leading-relaxed whitespace-pre-line">
-                    {exp.description}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Education */}
-      {education.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-serif font-semibold text-foreground mb-4 pb-2 border-b border-border/50">
-            Education
-          </h2>
-          <div className="space-y-4">
-            {education.map((edu) => (
-              <div key={edu.id} className="animate-slide-in">
-                <div className="flex justify-between items-start mb-1">
-                  <div>
-                    <h3 className="font-semibold text-foreground">
-                      {edu.degree} {edu.field && `in ${edu.field}`}
-                    </h3>
-                    <p className="text-sm text-accent font-medium">{edu.school}</p>
+                  {personalInfo.email}
+                </span>
+              )}
+              {personalInfo.phone && (
+                <span className="flex items-center gap-2 hover:text-accent transition-colors">
+                  <div className="h-6 w-6 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Phone className="h-3 w-3 text-accent" />
                   </div>
-                  <span className="text-xs text-muted-foreground whitespace-nowrap">
-                    {formatDate(edu.startDate)} – {formatDate(edu.endDate)}
-                  </span>
-                </div>
-                {edu.description && (
-                  <p className="text-sm text-foreground/80 mt-2 leading-relaxed">
-                    {edu.description}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+                  {personalInfo.phone}
+                </span>
+              )}
+              {personalInfo.location && (
+                <span className="flex items-center gap-2 hover:text-accent transition-colors">
+                  <div className="h-6 w-6 rounded-full bg-accent/10 flex items-center justify-center">
+                    <MapPin className="h-3 w-3 text-accent" />
+                  </div>
+                  {personalInfo.location}
+                </span>
+              )}
+              {personalInfo.linkedin && (
+                <span className="flex items-center gap-2 hover:text-accent transition-colors">
+                  <div className="h-6 w-6 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Linkedin className="h-3 w-3 text-accent" />
+                  </div>
+                  {personalInfo.linkedin}
+                </span>
+              )}
+              {personalInfo.website && (
+                <span className="flex items-center gap-2 hover:text-accent transition-colors">
+                  <div className="h-6 w-6 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Globe className="h-3 w-3 text-accent" />
+                  </div>
+                  {personalInfo.website}
+                </span>
+              )}
+            </div>
 
-      {/* Skills */}
-      {skills.length > 0 && (
-        <section>
-          <h2 className="text-lg font-serif font-semibold text-foreground mb-4 pb-2 border-b border-border/50">
-            Skills
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {skills.map((skill) => (
-              <span
-                key={skill}
-                className="text-sm px-3 py-1 bg-secondary text-secondary-foreground rounded-full"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        </section>
-      )}
+            {personalInfo.summary && (
+              <p className="mt-5 text-foreground/80 leading-relaxed text-[15px] bg-secondary/30 p-4 rounded-xl border-l-4 border-accent">
+                {personalInfo.summary}
+              </p>
+            )}
+          </header>
+        )}
+
+        {/* Work Experience */}
+        {workExperience.length > 0 && (
+          <section className="mb-8">
+            <h2 className="text-lg font-serif font-bold text-foreground mb-5 flex items-center gap-3">
+              <span className="h-8 w-1 bg-accent rounded-full" />
+              Work Experience
+            </h2>
+            <div className="space-y-5">
+              {workExperience.map((exp, index) => (
+                <div 
+                  key={exp.id} 
+                  className="relative pl-4 border-l-2 border-border/40 hover:border-accent/40 transition-colors animate-slide-in"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-accent" />
+                  <div className="flex justify-between items-start mb-1.5 gap-4">
+                    <div>
+                      <h3 className="font-semibold text-foreground text-[15px]">{exp.position}</h3>
+                      <p className="text-sm text-accent font-medium">{exp.company}</p>
+                    </div>
+                    <span className="text-xs text-muted-foreground whitespace-nowrap bg-secondary/50 px-2.5 py-1 rounded-full">
+                      {formatDate(exp.startDate)} – {exp.current ? "Present" : formatDate(exp.endDate)}
+                    </span>
+                  </div>
+                  {exp.description && (
+                    <p className="text-sm text-foreground/75 mt-2 leading-relaxed whitespace-pre-line">
+                      {exp.description}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Education */}
+        {education.length > 0 && (
+          <section className="mb-8">
+            <h2 className="text-lg font-serif font-bold text-foreground mb-5 flex items-center gap-3">
+              <span className="h-8 w-1 bg-accent rounded-full" />
+              Education
+            </h2>
+            <div className="space-y-5">
+              {education.map((edu, index) => (
+                <div 
+                  key={edu.id} 
+                  className="relative pl-4 border-l-2 border-border/40 hover:border-accent/40 transition-colors animate-slide-in"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-accent" />
+                  <div className="flex justify-between items-start mb-1.5 gap-4">
+                    <div>
+                      <h3 className="font-semibold text-foreground text-[15px]">
+                        {edu.degree} {edu.field && `in ${edu.field}`}
+                      </h3>
+                      <p className="text-sm text-accent font-medium">{edu.school}</p>
+                    </div>
+                    <span className="text-xs text-muted-foreground whitespace-nowrap bg-secondary/50 px-2.5 py-1 rounded-full">
+                      {formatDate(edu.startDate)} – {formatDate(edu.endDate)}
+                    </span>
+                  </div>
+                  {edu.description && (
+                    <p className="text-sm text-foreground/75 mt-2 leading-relaxed">
+                      {edu.description}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Skills */}
+        {skills.length > 0 && (
+          <section>
+            <h2 className="text-lg font-serif font-bold text-foreground mb-5 flex items-center gap-3">
+              <span className="h-8 w-1 bg-accent rounded-full" />
+              Skills
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {skills.map((skill, index) => (
+                <span
+                  key={skill}
+                  className="text-sm px-4 py-1.5 bg-gradient-to-r from-secondary to-secondary/70 text-secondary-foreground rounded-full font-medium border border-border/30 hover:border-accent/30 transition-colors animate-fade-in"
+                  style={{ animationDelay: `${index * 30}ms` }}
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 };
